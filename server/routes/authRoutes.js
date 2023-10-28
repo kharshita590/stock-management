@@ -1,107 +1,122 @@
-require('dotenv').config()
 //require("./database/database").connect()
-const EmployeeModel = require('../models/Employee.jsx')
 const User = require('../models/Employee.jsx')
+const EmployeeModel = require('../models/Employee.jsx')
 const express = require('express')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const cookieParser = require('cookieparser')
-const app= express()
+const app = express()
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+require('dotenv').config();
+const jwtSecret = process.env.JWT_SECRET;
+const databaseUrl = process.env.DATABASE_URL;
 
 
-app.get("/",(req,res)=>{
-    res.send("<h1>Server is working </h1>")
-})
 
-app.post("/register",async(req,res) => {
-    try{
-        const {username,name,password,email}=req.body
+app.post("/register", async (req, res) => {
+    try {
+        const { username, name, email, password } = req.body
 
-        EmployeeModel.create(req.body)
-    .then(employees=>res.json(employees))
-    .catch(err=>res.json(err))
 
-        if(!(username && name && password && email)){
-               res.status(400).send("All fields are compulsory")
+        if (!(username && name && password && email)) {
+            return res.status(400).send("All fields are compulsory")
         }
 
-        const existingUser=await User.findOne({email})
-        if(existingUser){
-            res.status(401).send("User already exists")
-        }
+    //  const existingUser = await User.findOne({ email })
+    //    if (existingUser) {
+    //          return res.status(401).json({message: "already exists" })
+    //     }
 
 
-        const myEncPassword=await bcrypt.hash(password,10)
+        const myEncPassword = await bcrypt.hash(password, 10)
 
         const user = await User.create({
             username,
             name,
-            email,
-            password:myEncPassword
-        })
+            email: email,
+            password: myEncPassword
+        });
+        await user.save();
 
-        jwt.sign(
-            {if:user._id,email},
-            'sshh', //process.env.jwtsecret
+
+
+
+        const token = jwt.sign(
+            { id: user._id, email },
+            jwtSecret,
             {
-                expiresIn:"2h"
+                expiresIn: "2h"
             }
 
         );
         user.token = token
-        user.password=undefined
+       // user.password = undefined
 
 
 
-    res.status(201).json(user)
+        return res.status(201).json(user)
 
-    }catch(error){
+    } catch (error) {
         console.log(error)
 
     }
 })
 
-app.post("/login",async(req,res)=>{
-    try{
-        //get all data from frontend
-        const {email,password}=req.body
+app.post("/login", async (req, res) => {
+    try {
+        // Get all data from the frontend
+        const { email, password } = req.body
 
-        if(!(email && password)){
-            res.status(400).send('send all the data ')
-
+        if (!(email && password)) {
+            return res.status(400).send('Send all the data')
         }
-        // find user in DB
-        const user = await User.findOne({email})
-        // match the password
-        if(user &&( await bcrypt.compare(password,user.password))){
-            const token = jwt.sign(
-                {id:user._id},
-                'sshh',
+
+
+
+        // Find the user in the database
+        const user = await User.findOne({ email: email })
+
+        if (user && (await bcrypt.compare(password, user.password))) {
+            token = jwt.sign(
+                { id: user._id },
+                jwtSecret,
                 {
-                    expiresIn:"2h"
-                }
-
+                    expiresIn: "2h"
+                },
+          
             );
-            user.token=token
-            user.password=undefined
+
+            user.token = token;
+            // user.password = undefined;
+
+
+            // Send a token
+            // Cookie section
+            const option = {
+                expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+                httpOnly: true
+            };
+
+            return res.status(200)
+                .cookie("token", token, option)
+                .json({
+                    success: true,
+                    token,
+                    user
+                });
+        } else {
+            return res.status(401).send('Invalid credentials');
         }
-
-
-        // send a token
-          //cookie section
-          const option ={
-            expires:new Date(Date.now()+3*24*60*60*1000),
-            httpOnly: true
-        };
-        res.status(200).cookie("token",token,options).json({
-            success:true,
-            token,
-            user
-        })
-
-    }catch(error){
-        console.log(error)
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send('Internal server error');
     }
 })
 
 module.exports = app;
+
+
+
+
+
+

@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 import axios from 'axios';
 import Modal from 'react-modal';
+import './tables.css';
+import {useParams} from 'react-router-dom';
+
 
 
 //styling
@@ -75,21 +78,19 @@ const saveBtn = {
   cursor: 'pointer',
   fontSize: '14px'
 }
-const form1={
-  display:'block',
-  alignItems:'center',
+const form1 = {
+  display: 'block',
+  alignItems: 'center',
   justifyContent: 'center',
-
-
 }
 
 const Tables = () => {
   const [tableData, setTableData] = useState([
   ]);
 
-  const [isModalOpen,setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = (e)=>{
+  const openModal = (e) => {
     e.preventDefault();
     setremovePopUp(true);
     setIsModalOpen(true);
@@ -97,7 +98,7 @@ const Tables = () => {
 
   }
 
-  const closeModal = ()=>{
+  const closeModal = () => {
     setIsModalOpen(false);
   }
 
@@ -106,6 +107,7 @@ const Tables = () => {
 
 
   const [popUp, setpopUp] = useState(false);
+  const[data,setData]=useState('');
   const [removepopUp, setremovePopUp] = useState(false);
   const [dateOfEntry, setdateOfEntry] = useState('');
   const [chemicalName, setchemicalName] = useState('');
@@ -117,8 +119,8 @@ const Tables = () => {
 
 
 
-
-
+const {id}=useParams();
+//console.log(id);
 
   const [newRowData, setNewRowData] = useState({
     sr: tableData.length,
@@ -172,6 +174,8 @@ const Tables = () => {
     setpopUp(false);
   };
 
+
+
   const handleSubmit1 = (e) => {
     e.preventDefault();
 
@@ -190,9 +194,19 @@ const Tables = () => {
         console.error(error);
       });
   };
+  const token=localStorage.getItem('token')
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  };
 
   const fetchDataFromBackend = () => {
-    axios.get('http://localhost:3000/chemicals')
+    axios.get('http://localhost:3000/chemicals',{
+      headers: {
+        'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+      },
+    })
       .then(response => {
         setTableData(response.data);
       })
@@ -207,12 +221,16 @@ const Tables = () => {
 
   }, [tableData]);
 
+const  handleRowClick =(rowId)=>{
+  console.log(`Clicked row with ID: ${rowId}`);
 
+}
 
 
 
   return (
     <div>
+      <h1>Chemistry Lab Stock Management</h1>
       <div className="container" style={table}>
         <table className="table table-hover">
           <thead>
@@ -242,7 +260,7 @@ const Tables = () => {
           </thead>
           <tbody className="row1" style={row1}>
             {tableData.map((row, index) => (
-              <tr key={row._id}>
+              <tr key={row._id} onClick={() => handleRowClick(row._id)}>
                 <td>{index + 1}</td>
                 <td>{row.dateOfEntry}</td>
                 <td>{row.chemicalName}</td>
@@ -250,6 +268,7 @@ const Tables = () => {
                 <td>{row.dateOfIssue}</td>
                 <td>{row.amount}</td>
                 <td>{row.quantityLeft}</td>
+
               </tr>
             ))}
           </tbody>
@@ -261,77 +280,77 @@ const Tables = () => {
           <div className="cross" onClick={() => setpopUp(false)}>cross</div>
           <form onSubmit={handleSubmit}>
 
-          <div className = "form-group">
-            <label htmlFor="dateOfEntry"> Date of entry</label>
-            <input
-              type="text"
-              id="dateOfEntry"
-              name="dateOfEntry"
-              value={newRowData.dateOfEntry}
-              onChange={handleInputChange}
-              className="form-control"
-            />
+            <div className="form-group">
+              <label htmlFor="dateOfEntry"> Date of entry</label>
+              <input
+                type="text"
+                id="dateOfEntry"
+                name="dateOfEntry"
+                value={newRowData.dateOfEntry}
+                onChange={handleInputChange}
+                className="form-control"
+              />
             </div>
 
 
-            <div className = "form-group">
-            <label htmlFor="chemicalName">Consumable/Non Consumable</label>
-            <input
-              type="text"
-              id="chemicalName"
-              name="chemicalName"
-              value={newRowData.chemicalName}
-              onChange={handleInputChange}
-              className="form-control"
-            />
+            <div className="form-group">
+              <label htmlFor="chemicalName">Consumable/Non Consumable</label>
+              <input
+                type="text"
+                id="chemicalName"
+                name="chemicalName"
+                value={newRowData.chemicalName}
+                onChange={handleInputChange}
+                className="form-control"
+              />
             </div>
 
-            <div className = "form-group">
-            <label htmlFor="quantity">Quantity</label>
-            <input
-              type="text"
-              id="quantity"
-              name="quantity"
-              value={newRowData.quantity}
-              onChange={handleInputChange}
-              className="form-control"
-            />
+            <div className="form-group">
+              <label htmlFor="quantity">Quantity</label>
+              <input
+                type="text"
+                id="quantity"
+                name="quantity"
+                value={newRowData.quantity}
+                onChange={handleInputChange}
+                className="form-control"
+              />
             </div>
 
-           <div className="form-group">
-            <label htmlFor="dateOfIssue"> Date of issue</label>
-            <input
-              type="text"
-              id="dateOfIssue"
-              name="dateOfIssue"
-              value={newRowData.dateOfIssue}
-              onChange={handleInputChange}
-              className="form-control"
-            />
+            <div className="form-group">
+              <label htmlFor="dateOfIssue"> Date of issue</label>
+              <input
+                type="text"
+                id="dateOfIssue"
+                name="dateOfIssue"
+                value={newRowData.dateOfIssue}
+                onChange={handleInputChange}
+                className="form-control"
+              />
             </div>
 
-         <div className="form-group">
-            <label htmlFor="amount"> Amount</label>
-            <input
-              type="text"
-              id="amount"
-              name="amount"
-              value={newRowData.amount}
-              onChange={handleInputChange}
-              className="form-control"
-            />
+            <div className="form-group">
+              <label htmlFor="amount"> Amount</label>
+              <input
+                type="text"
+                id="amount"
+                name="amount"
+                value={newRowData.amount}
+                onChange={handleInputChange}
+                className="form-control"
+              />
             </div>
 
-         <div className="form-group">
-            <label htmlFor="quantityLeft">quanity Left</label>
-            <input
-              type="text"
-              id="quantityLeft"
-              name="quantityLeft"
-              value={newRowData.quantityLeft}
-              onChange={handleInputChange}
-              className="form-control"
-            />
+            <div className="form-group">
+              <label htmlFor="quantityLeft">quanity Left</label>
+              <input
+                type="text"
+                id="quantityLeft"
+                name="quantityLeft"
+                value={newRowData.quantityLeft}
+                onChange={handleInputChange}
+                className="form-control"
+              />
             </div>
 
             <button style={RemoveBtn} onClick={closeModal} >Submit</button>
@@ -342,84 +361,86 @@ const Tables = () => {
         </div>
 
       )}
-       <button style={RemoveBtn} onClick={openModal}>Remove-</button>
+      <button style={addBtn} onClick={handleRow}>Add+</button>
+      <button style={RemoveBtn} onClick={openModal}>Remove-</button>
       {removepopUp && (
-        <div className="mb-3" style={{maxWidth:'300px',marginLeft:'400px',border:'1px solid #d6cfc7',padding:'0.5em 0.5em 0.5em'}}>
+        <div className="mb-3" style={{ maxWidth: '300px', marginLeft: '400px', border: '1px solid #d6cfc7', padding: '0.5em 0.5em 0.5em' }}>
 
-            <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        contentLabel="Example Modal"
-        style={{
-          content: {
-            maxWidth: '300px',
-            margin: '0 auto',
-            border: '1px solid #d6cfc7',
-            padding: '0.5em 0.5em 0.5em',
-            maxHeight:'400px'
-          },
-        }}
-      >
-          <div className="cross" onClick={() => setremovePopUp(false)}>X</div>
-          <form onSubmit={handleSubmit1} style={form1}>
+          <Modal
+            isOpen={isModalOpen}
+            onRequestClose={closeModal}
+            contentLabel="Example Modal"
+            style={{
+              content: {
+                maxWidth: '300px',
+                margin: '0 auto',
+                border: '1px solid #d6cfc7',
+                padding: '0.5em 0.5em 0.5em',
+                maxHeight: '400px'
+              },
+            }}
+          >
+            <div className="cross" onClick={() => setremovePopUp(false)}>X</div>
 
-            <div className = "form-group">
-            <label htmlFor="chemicalName">Consumable/Non Consumable</label>
-            <input
-              type="text"
-              id="chemicalName"
-              name="chemicalName"
-              value={removeData.chemicalName}
-              onChange={handleInputChange1}
-              className="form-control"
-            />
-            </div>
+            <form onSubmit={handleSubmit1} style={form1}>
 
-
-            <div className = "form-group">
-            <label htmlFor="quantity">Quantity</label>
-            <input
-              type="text"
-              id="quantity"
-              name="quantity"
-              value={removeData.quantity}
-              onChange={handleInputChange1}
-              className="form-control"
-            />
-            </div>
-
-            <div className = "form-group">
-            <label htmlFor="QuantityToRemove" >Quantity Removed</label>
-            <input
-              type="text"
-              id="QuantityToRemove"
-              name="quantityToRemove"
-              value={removeData.quantityToRemove}
-              onChange={handleInputChange1}
-              className="form-control"
+              <div className="form-group">
+                <label htmlFor="chemicalName">Consumable/Non Consumable</label>
+                <input
+                  type="text"
+                  id="chemicalName"
+                  name="chemicalName"
+                  value={removeData.chemicalName}
+                  onChange={handleInputChange1}
+                  className="form-control"
+                />
+              </div>
 
 
-            />
-            </div>
+              <div className="form-group">
+                <label htmlFor="quantity">Quantity</label>
+                <input
+                  type="text"
+                  id="quantity"
+                  name="quantity"
+                  value={removeData.quantity}
+                  onChange={handleInputChange1}
+                  className="form-control"
+                />
+              </div>
 
-            <div className = "form-group">
-            <label htmlFor="quantityLeft">quantity Left</label>
-            <input
-              type="text"
-              id="quanityLeft"
-              name="quantityLeft"
-              value={removeData.quantityLeft}
-              onChange={handleInputChange1}
-              className="form-control"
+              <div className="form-group">
+                <label htmlFor="QuantityToRemove" >Quantity Removed</label>
+                <input
+                  type="text"
+                  id="QuantityToRemove"
+                  name="quantityToRemove"
+                  value={removeData.quantityToRemove}
+                  onChange={handleInputChange1}
+                  className="form-control"
 
-            />
-            </div>
 
-            <button style={RemoveBtn} onClick={() => handleRemove(removeData.chemicalName, removeData.quantityToRemove)}>Subtract</button>
+                />
+              </div>
 
-            <button style={RemoveBtn} onClick = {closeModal}>Submit</button>
+              <div className="form-group">
+                <label htmlFor="quantityLeft">quantity Left</label>
+                <input
+                  type="text"
+                  id="quanityLeft"
+                  name="quantityLeft"
+                  value={removeData.quantityLeft}
+                  onChange={handleInputChange1}
+                  className="form-control"
 
-          </form>
+                />
+              </div>
+
+              <button style={RemoveBtn} onClick={() => handleRemove(removeData.chemicalName, removeData.quantityToRemove)}>Subtract</button>
+
+              <button style={RemoveBtn} onClick={closeModal}>Submit</button>
+
+            </form>
 
 
           </Modal>
@@ -427,9 +448,13 @@ const Tables = () => {
 
 
       )}
-      <button style={addBtn} onClick={handleRow}>Add+</button>
+
 
       <button style={saveBtn} >Save</button>
+
+      <footer>
+        <h3>&copy; 2023 Harshita Kumari. All rights reserved.</h3>
+      </footer>
 
     </div>
 

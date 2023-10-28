@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+const EmployeeModel = require('./Employee.jsx');
 
 const ChemicalsSchema = new mongoose.Schema({
+   
     customId: { type: String, unique: true },
     dateOfEntry:Date,
     chemicalName:String,

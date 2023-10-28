@@ -1,0 +1,61 @@
+.container {
+    display: flex;
+    align-items: center; /* Vertically center the content */
+    margin-top: 8rem;
+  }
+
+  .software {
+    width: 25rem;
+    height: 25rem;
+    margin-right:7rem;
+
+  }
+
+  h2 {
+    width: 50%;
+    font-family: poppins;
+    line-height: 3rem;
+    white-space: normal; /* Allow text to wrap to the next line if it's too long */
+  }
+
+  .btn1{
+      width: 6rem;
+      height: 2rem;
+      cursor: pointer;
+      border: none;
+      font-family: poppins;
+      color: #fff;
+      font-weight:480;
+      background-color:rgb(1, 187, 94);
+      border-radius:5px;
+      margin-right: 2rem;
+  }
+
+.btn2{
+    width: 6rem;
+    height: 2rem;
+    cursor: pointer;
+    border: none;
+    font-family: poppins;
+    color: #fff;
+    font-weight:480;
+    background-color:rgb(1, 187, 94);
+    border-radius:5px;
+}
+.btn1:hover{
+    color: rgb(0, 0, 0);
+    background-color:rgb(246, 152, 1);
+    color:#fff;
+
+}
+
+.btn2:hover{
+    color: rgb(0, 0, 0);
+    background-color:rgb(246, 152, 1);
+    color:#fff;
+
+}
+.btnContainer{
+    margin-left: 35.5rem;
+    margin-top: -6rem;
+}

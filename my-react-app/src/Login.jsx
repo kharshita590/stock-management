@@ -1,32 +1,46 @@
 import axios from 'axios';
-import React,{useState,Link} from 'react'
+import React, { useState } from 'react';
+import "./login.css"
+import {useNavigate} from 'react-router-dom'
 
 
+function Login() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    navigate('../tables'); 
+    try{
+    const response = await axios.post('http://localhost:3000/login', { email, password });
+
+  if (response.data.auth) {
+    localStorage.setItem('user', JSON.stringify(response.data.user));
+    localStorage.setItem('auth', JSON.stringify(response.data.auth)); // Store auth data separately if needed
 
 
-function Login(){
-    const[email,setEmail] = useState()
-  const[password,setPassword] = useState()
-    const handleSubmit=(e)=>{
-      e.preventDefault();
-      axios.post('http://localhost:3001/login',{email,password:password})
-      .then(result=>console.log(result
-        ).catch(err=> console.log(err)))
-    }
-    return(
-        <div>
-            <form className="mx-1 mx-md-4" onSubmit={handleSubmit}>
-              <input type="email" id="form3Example3c" className="form-control"  onChange ={(e)=>setEmail(e.targetvalue)} />
-                      <label className="form-label" htmlFor="form3Example3c">Your Email</label>
+  }
+} catch (error) {
+  console.error('Error:', error);
+  // Handle authentication error here
+}
+  }
+  return (
+    <div>
+        <div className="container2">
+          <p>Login</p>
+      <form className="mx-1 mx-md-4" onSubmit={handleSubmit}>
 
-                      <input type="password" id="form3Example4c" className="form-control"  onChange ={(e)=>setPassword(e.targetvalue)}/>
-                      <label className="form-label" htmlFor="form3Example4c">Password</label>
-                      <Link to="./login" className="btn btn-primary">Login</Link>
-   </form>
+      <label className="form-label" htmlFor="form3Example3c">Your Email</label>
+        <input type="email" id="form3Example3c" className="form-control" onChange={(e) => setEmail(e.target.value)} />
 
-        </div>
-    )
+        <label className="form-label" htmlFor="form3Example4c">Password</label>
+        <input type="password" id="form3Example4c" className="form-control" onChange={(e) => setPassword(e.target.value)} />
 
-
+        <button type="submit"className="btn5">Login</button>
+      </form>
+     </div>
+    </div>
+  )
 }
 export default Login;
