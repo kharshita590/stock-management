@@ -1,13 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const app = express();
 const cors = require('cors');
 var bodyParser = require('body-parser');
 const EmployeeModel = require('./models/Employee.jsx');
 const User = require('./models/Employee.jsx')
 const ChemicalsModel = require('./models/chemicals.jsx');
-
-const app = express();
 app.use(express.json())
+
+
 const auth = require('./routes/authRoutes');
 app.use(cors(
 
@@ -33,6 +34,12 @@ process.on('unhandledRejection', (reason, promise) => {
   console.log('Unhandled Rejection at:', promise, 'reason:', reason);
 
 });
+
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ message: 'Internal server error' });
+});
+
 // app.post('/chemicals', AuthenticateUser, async (req, res) => {
 //   try {
 //     console.log('inside post api')
