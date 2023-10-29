@@ -11,7 +11,7 @@ function SignUp() {
   const [password, setPassword] = useState('')
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post('https://stockstore2.onrender.com/register', { name, username, email, password: password })
+    axios.post('https://stockstore12.onrender.com/register', { name, username, email, password: password })
       .then(result => {
         console.log(result)
         navigate('../login')

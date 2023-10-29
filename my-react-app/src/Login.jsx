@@ -12,7 +12,7 @@ function Login() {
     e.preventDefault();
 
     try{
-    const response = await axios.post('https://stockstore2.onrender.com/login', { email, password });
+    const response = await axios.post('https://stockstore12.onrender.com/login', { email, password });
     navigate('../tables');
 
   if (response.data.auth) {
