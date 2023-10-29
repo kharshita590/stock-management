@@ -23,11 +23,11 @@ jwt.verify(token,jwtSecret,(err,user)=>{
     console.log(token)
     console.log(user)
     if(err){
-        return res.status(401).json({ message: 'Failed to authenticate token' });
+       // return res.status(401).json({ message: 'Failed to authenticate token' });
 
     }
     req.user=user;
-    next();
+    return next();
 
 
 
