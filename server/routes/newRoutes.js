@@ -20,16 +20,13 @@ const AuthenticateUser = (req,res,next) =>{
     res.status(401).json({message: 'unauthorized'})
     }
 jwt.verify(token,jwtSecret,(err,user)=>{
-    // console.log(token)
-    // console.log(user)
+    
     if(err){
-        console.log('HI');
+
         console.log(err)
-        //res.status(401).json({ message: 'Invalid token' });
+
     }
     req.user=user;
-   // console.log(req.user,"hii")
-    //req.isAuthenticated = true;
     next();
 
 

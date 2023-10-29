@@ -24,7 +24,7 @@ var nodemailer = require('nodemailer');
 
 const AuthenticateUser = require('./routes/newRoutes');
 //app.set(EmployeeModel)
-mongoose.connect("mongodb://localhost:27017/").then(() => console.log("Connected"))
+mongoose.connect(databaseUrl).then(() => console.log("Connected"))
 
 // app.post('/chemicals', AuthenticateUser, async (req, res) => {
 //   try {
@@ -99,13 +99,13 @@ app.get('/chemicals', AuthenticateUser, async (req, res) => {
   }
 });
 
-app.post('/chemicals/remove/:name',AuthenticateUser, (req, res) => {
+app.post('/chemicals/remove/:name',AuthenticateUser, async(req, res) => {
   const chemicalName = req.params.name;
   const { quantityRemoved } = req.body;
 
 
 
-  ChemicalsModel.findOne({ chemicalName: chemicalName })
+  const y = await ChemicalsModel.findOne({ chemicalName: chemicalName })
     .then((chemicals) => {
       if (!chemicals) {
         return res.status(400).json({ message: "not found" });
@@ -167,7 +167,7 @@ app.post('/forget-password', async (req, res) => {
       from: process.env.EMAIL, // Make sure process.env.EMAIL is set correctly
       to: email,
       subject: 'Reset your password! How Fool! Forgot Your Password!',
-      text: `http://localhost:4000/reset-password/${user._id}/${token}`
+      text: `https://stockstore.onrender.com/reset-password/${user._id}/${token}`
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -192,7 +192,7 @@ app.post("/reset-password/:id/:token",async(req,res)=>{
   const {id,token} = req.params
   const {password} = req.body
 
-  jwt.verify(token,jwtSecret,(err,user)=>{
+  const tc=await jwt.verify(token,jwtSecret,(err,user)=>{
 
     if(err){
 

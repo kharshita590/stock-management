@@ -13,7 +13,7 @@ function ResetPassword() {
         e.preventDefault();
         navigate('../tables');
         try {
-            const response = await axios.post(`http://localhost:3000/reset-password/${id}/${token}`, {password});
+            const response = await axios.post(`https://stockstore.onrender.com/reset-password/${id}/${token}`, {password});
 
             if (response.data.auth) {
                 localStorage.setItem('user', JSON.stringify(response.data.user));
