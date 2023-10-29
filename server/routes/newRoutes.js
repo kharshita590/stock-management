@@ -10,23 +10,36 @@ const databaseUrl = process.env.DATABASE_URL;
 const jwtSecret = process.env.JWT_SECRET;
 console.log(jwtSecret);
 
-const AuthenticateUser = async (req,res,next) =>{
+const AuthenticateUser = (req,res,next) =>{
    // const token = req.header('Authorization');
     let token = req.cookies.token;
-
 
 
     if(!token){
     res.status(401).json({message: 'unauthorized'})
     }
-    try {
-        const user = await jwt.verify(token, jwtSecret);
-        req.user = user;
-        next();
-    } catch (err) {
-        console.log(err);
-        return res.status(401).json({ message: 'unauthorized' });
-    }
+jwt.verify(token,jwtSecret,(err,user)=>{
+    // console.log(token)
+    // console.log(user)
+    if(err){
 
-};
+        console.log(err)
+
+    }
+    req.user=user;
+    next();
+
+
+
+});
+
+
+}
+
+    //   req.user=decoded.user;
+
+    //  req.isAuthenticated = true;
+
+    //   next();
+
 module.exports = AuthenticateUser;
