@@ -223,12 +223,12 @@ app.post("/reset-password/:id/:token",(req, res)=> {
 })
 if (process.env.NODE_ENV === 'production') {
   //app.use(express.static(__dirname + '/../public/'))
-  app.use(express.static(__dirname + './build'))
+  app.use(express.static(__dirname + '/../build'))
 
 
 
   app.get('/.*/', (req, res) => {
-      res.sendFile(__dirname + './build/index.html');
+      res.sendFile(__dirname + '/../build/index.html');
   });
 }
 
