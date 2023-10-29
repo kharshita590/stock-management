@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 const EmployeeModel = require('./models/Employee.jsx');
 const User = require('./models/Employee.jsx')
 const ChemicalsModel = require('./models/chemicals.jsx');
+
 const app = express();
 app.use(express.json())
 const auth = require('./routes/authRoutes');
@@ -30,7 +31,7 @@ mongoose.connect(databaseUrl).then(() => console.log("Connected"))
 
 process.on('unhandledRejection', (reason, promise) => {
   console.log('Unhandled Rejection at:', promise, 'reason:', reason);
- 
+
 });
 // app.post('/chemicals', AuthenticateUser, async (req, res) => {
 //   try {
@@ -220,6 +221,16 @@ app.post("/reset-password/:id/:token",(req, res)=> {
 
   });
 })
+if (process.env.NODE_ENV === 'production') {
+  //app.use(express.static(__dirname + '/../public/'))
+  app.use(express.static(__dirname + './build'))
+
+
+
+  app.get('/.*/', (req, res) => {
+      res.sendFile(__dirname + './build/index.html');
+  });
+}
 
 
 app.listen(4000, () => {
