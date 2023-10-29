@@ -99,7 +99,7 @@ app.get('/chemicals', AuthenticateUser, async (req, res) => {
   }
 });
 
-app.post('/chemicals/remove/:name', (req, res) => {
+app.post('/chemicals/remove/:name',AuthenticateUser, (req, res) => {
   const chemicalName = req.params.name;
   const { quantityRemoved } = req.body;
 
@@ -158,8 +158,8 @@ app.post('/forget-password', async (req, res) => {
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-       user: "stockmanager14@gmail.com",
-       pass: "hkil txqw tays yjlg"
+       user: process.env.EMAIL,
+       pass: process.env.PASSWORD
       }
     });
 
