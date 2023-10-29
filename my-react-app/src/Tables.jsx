@@ -164,7 +164,7 @@ const {id}=useParams();
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.post('https://stockstore.onrender.com/chemicals', newRowData)
+    axios.post('https://stockstore2.onrender.com/chemicals', newRowData)
       .then(result => {
         console.log(result)
       })
@@ -184,7 +184,7 @@ const {id}=useParams();
   const handleRemove = (chemicalName, quantityToRemove) => {
     const quantityRemoved = parseInt(quantityToRemove);
     axios
-      .post(`https://stockstore.onrender.com/chemicals/remove/${chemicalName}`, { quantityRemoved })
+      .post(`https://stockstore2.onrender.com/chemicals/remove/${chemicalName}`, { quantityRemoved })
       .then((response) => {
         // Handle success, e.g., update the state or display a success message
         console.log(response.data);
@@ -202,7 +202,7 @@ const {id}=useParams();
   };
 
   const fetchDataFromBackend = () => {
-    axios.get('https://stockstore.onrender.com/chemicals',{
+    axios.get('https://stockstore2.onrender.com/chemicals',{
       // headers: {
       //   'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
       // },
