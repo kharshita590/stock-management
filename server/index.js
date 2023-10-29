@@ -8,7 +8,9 @@ const ChemicalsModel = require('./models/chemicals.jsx');
 const app = express();
 app.use(express.json())
 const auth = require('./routes/authRoutes');
-app.use(cors());
+app.use(cors(
+
+));
 app.use(auth);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,6 +28,10 @@ const AuthenticateUser = require('./routes/newRoutes');
 //app.set(EmployeeModel)
 mongoose.connect(databaseUrl).then(() => console.log("Connected"))
 
+process.on('unhandledRejection', (reason, promise) => {
+  console.log('Unhandled Rejection at:', promise, 'reason:', reason);
+ 
+});
 // app.post('/chemicals', AuthenticateUser, async (req, res) => {
 //   try {
 //     console.log('inside post api')
