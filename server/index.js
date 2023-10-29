@@ -99,7 +99,7 @@ app.get('/chemicals', AuthenticateUser, async (req, res) => {
   }
 });
 
-app.post('/chemicals/remove/:name',AuthenticateUser, async(req, res) => {
+app.post('/chemicals/remove/:name', AuthenticateUser, async (req, res) => {
   const chemicalName = req.params.name;
   const { quantityRemoved } = req.body;
 
@@ -158,8 +158,8 @@ app.post('/forget-password', async (req, res) => {
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-       user: process.env.EMAIL,
-       pass: process.env.PASSWORD
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD
       }
     });
 
@@ -188,30 +188,31 @@ app.post('/forget-password', async (req, res) => {
 // user: "stockmanager14@gmail.com",
 // pass: "hkil txqw tays yjlg"
 
-app.post("/reset-password/:id/:token",async(req,res)=>{
-  const {id,token} = req.params
-  const {password} = req.body
+app.post("/reset-password/:id/:token",(req, res)=> {
+  const { id, token } = req.params
+  const { password } = req.body
 
-  const tc=await jwt.verify(token,jwtSecret,(err,user)=>{
+   jwt.verify(token, jwtSecret, (err, user) => {
 
-    if(err){
+    if (err) {
 
-        res.status(401).json({ message: 'Invalid token' });
-    }else{
-      bcrypt.hash(password,10)
-      .then(hash=>{
-        EmployeeModel.findByIdAndUpdate({_id:id},{password:hash})
-        .then(u=> res.send({Status:err}))
-        .catch(err => res.send({Status:err}))
-      }).catch(err => res.send({Status:err}))
+      res.status(401).json({ message: 'Invalid token' });
+    } else {
+      bcrypt.hash(password, 10)
+        .then(hash => {
+          EmployeeModel.findByIdAndUpdate({ _id: id }, { password: hash })
+            .then(u => res.send({ Status: err }))
+            .catch(err => res.send({ Status: err }))
+        })
+        .catch(err => res.send({ Status: err }))
 
     }
-// pass = show@12345
+    // pass = show@12345
 
 
 
 
-});
+  });
 })
 
 
