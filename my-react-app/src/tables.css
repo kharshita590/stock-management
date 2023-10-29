@@ -32,3 +32,33 @@ h3{
     font-family: poppins;
     font-size:10pt;
 }
+h4 {
+   color:white;
+    font-family: poppins;
+}
+
+.navbar-brand2{
+    color:white;
+    font-family: poppins;
+    font-size: 17pt;
+    text-decoration: none;
+
+}
+.navbar-brand1{
+    color:white;
+    font-family: poppins;
+    font-weight: normal;
+    margin-left: 3rem;
+    font-size: 15pt;
+    text-decoration: none;
+}
+.nav-link{
+    color:white;
+    font-family: poppins;
+
+}
+.nav-link-disabled{
+    color:white;
+    text-decoration: none;
+    font-family: poppins;
+}

@@ -7,14 +7,14 @@ export const Homepage = () => {
     const navigate = useNavigate()
     const handleSubmit = (e) => {
         e.preventDefault();
-        navigate('../register')
+        navigate('../login')
     }
 
     const handleSubmit2=(e)=>{
         e.preventDefault();
-        navigate('../login')
+        navigate('../register')
     }
-    
+
   return (
     <div>
         <div className="container">

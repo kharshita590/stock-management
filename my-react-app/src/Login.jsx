@@ -1,7 +1,7 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import "./login.css"
-import {useNavigate} from 'react-router-dom'
+import {useNavigate,Link } from 'react-router-dom'
 
 
 function Login() {
@@ -10,9 +10,10 @@ function Login() {
   const [password, setPassword] = useState()
   const handleSubmit = async(e) => {
     e.preventDefault();
-    navigate('../tables'); 
+
     try{
     const response = await axios.post('http://localhost:3000/login', { email, password });
+    navigate('../tables');
 
   if (response.data.auth) {
     localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -35,7 +36,9 @@ function Login() {
         <input type="email" id="form3Example3c" className="form-control" onChange={(e) => setEmail(e.target.value)} />
 
         <label className="form-label" htmlFor="form3Example4c">Password</label>
+        <Link to = "/forget-Password">Forgot Password</Link>
         <input type="password" id="form3Example4c" className="form-control" onChange={(e) => setPassword(e.target.value)} />
+
 
         <button type="submit"className="btn5">Login</button>
       </form>

@@ -45,7 +45,7 @@ app.post("/register", async (req, res) => {
             { id: user._id, email },
             jwtSecret,
             {
-                expiresIn: "2h"
+                expiresIn: "1d"
             }
 
         );
@@ -81,9 +81,9 @@ app.post("/login", async (req, res) => {
                 { id: user._id },
                 jwtSecret,
                 {
-                    expiresIn: "2h"
+                    expiresIn: "1d"
                 },
-          
+
             );
 
             user.token = token;

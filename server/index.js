@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 var bodyParser = require('body-parser');
 const EmployeeModel = require('./models/Employee.jsx');
+const User = require('./models/Employee.jsx')
 const ChemicalsModel = require('./models/chemicals.jsx');
 const app = express();
 app.use(express.json())
@@ -13,10 +14,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+require('dotenv').config();
+const jwtSecret = process.env.JWT_SECRET;
+const databaseUrl = process.env.DATABASE_URL;
+
+var nodemailer = require('nodemailer');
 
 const AuthenticateUser = require('./routes/newRoutes');
 //app.set(EmployeeModel)
-mongoose.connect("mongodb://localhost:27017/Documents").then(() => console.log("Connected"))
+mongoose.connect("mongodb://localhost:27017/").then(() => console.log("Connected"))
 
 // app.post('/chemicals', AuthenticateUser, async (req, res) => {
 //   try {
@@ -43,20 +51,26 @@ mongoose.connect("mongodb://localhost:27017/Documents").then(() => console.log("
 app.post('/chemicals', AuthenticateUser, async (req, res) => {
   try {
     const body = req.body;
-    
+
     const userId = req.user.id;
 
     // 1. Save the chemical data to the Chemicals collection.
     const newChemical = new ChemicalsModel(body);
+
     const savedChemical = await newChemical.save();
+    console.log(savedChemical)
 
     // 2. Get the _id of the newly created chemical document.
-    const chemicalId = savedChemical._id;
+    var chemicalId = savedChemical._id;
+    await ChemicalsModel.findByIdAndUpdate(chemicalId, {
+      $push: { userId: userId }
+    });
 
     // 3. Update the user document with the _id of the chemical.
     // Assuming you have a UserModel and the user has a chemicals array.
     await EmployeeModel.findByIdAndUpdate(userId, {
       $push: { Chemicals: chemicalId }
+
     });
 
     return res.json(savedChemical);
@@ -69,9 +83,12 @@ app.post('/chemicals', AuthenticateUser, async (req, res) => {
 app.get('/chemicals', AuthenticateUser, async (req, res) => {
 
   try {
+    const body = req.body;
 
     const userId = req.user.id;
-    const chemicals = await ChemicalsModel.find({ user: userId });
+    //console.log(userId);
+    const chemicals = await ChemicalsModel.find({ userId: userId });
+    //const chemicals = await ChemicalsModel.findById(chemicalId);
     //console.log(userId);
     return res.json(chemicals);
   } catch (error) {
@@ -120,7 +137,84 @@ app.post('/chemicals/remove/:name', (req, res) => {
 
 
 
+
+
+
+app.post('/forget-password', async (req, res) => {
+  const { email } = req.body;
+  console.log(email);
+
+  try {
+    const user = await EmployeeModel.findOne({ email: email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const token = jwt.sign({ id: user._id }, jwtSecret, {
+      expiresIn: "1d"
+    });
+
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+       user: "stockmanager14@gmail.com",
+       pass: "hkil txqw tays yjlg"
+      }
+    });
+
+    var mailOptions = {
+      from: process.env.EMAIL, // Make sure process.env.EMAIL is set correctly
+      to: email,
+      subject: 'Reset your password! How Fool! Forgot Your Password!',
+      text: `http://localhost:4000/reset-password/${user._id}/${token}`
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Error sending email" });
+      } else {
+        return res.status(200).json({ message: "Email sent successfully" });
+      }
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
+// user: "stockmanager14@gmail.com",
+// pass: "hkil txqw tays yjlg"
+
+app.post("/reset-password/:id/:token",async(req,res)=>{
+  const {id,token} = req.params
+  const {password} = req.body
+
+  jwt.verify(token,jwtSecret,(err,user)=>{
+
+    if(err){
+
+        res.status(401).json({ message: 'Invalid token' });
+    }else{
+      bcrypt.hash(password,10)
+      .then(hash=>{
+        EmployeeModel.findByIdAndUpdate({_id:id},{password:hash})
+        .then(u=> res.send({Status:err}))
+        .catch(err => res.send({Status:err}))
+      }).catch(err => res.send({Status:err}))
+
+    }
+// pass = show@12345
+
+
+
+
+});
+})
+
+
 app.listen(4000, () => {
   console.log("server is running ")
 })
-

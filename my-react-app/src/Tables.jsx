@@ -203,9 +203,9 @@ const {id}=useParams();
 
   const fetchDataFromBackend = () => {
     axios.get('http://localhost:3000/chemicals',{
-      headers: {
-        'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-      },
+      // headers: {
+      //   'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+      // },
     })
       .then(response => {
         setTableData(response.data);
@@ -230,6 +230,35 @@ const  handleRowClick =(rowId)=>{
 
   return (
     <div>
+
+
+<nav className="navbar navbar-expand-lg navbar-light bg-dark">
+      <div className="container-fluid">
+        <h4><a className="navbar-brand2" href="#">StockManagement</a></h4>
+        <h5><a className="navbar-brand1" href="#">Home</a></h5>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item">
+              <a className="nav-link-disabled" href="#" onClick="">
+                Log Out
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+
+
+
+
+
+
+
       <h1>Chemistry Lab Stock Management</h1>
       <div className="container" style={table}>
         <table className="table table-hover">
@@ -276,8 +305,8 @@ const  handleRowClick =(rowId)=>{
       </div>
       {popUp && (
 
-        <div className="mb-3">
-          <div className="cross" onClick={() => setpopUp(false)}>cross</div>
+        <div className="mb-3" style={{ maxWidth: '300px', marginLeft: '500px',marginTop:'3rem', border: '1px solid #d6cfc7', padding: '0.5em 0.5em 0.5em' }}>
+          <div className="cross" onClick={() => setpopUp(false)}>X</div>
           <form onSubmit={handleSubmit}>
 
             <div className="form-group">
