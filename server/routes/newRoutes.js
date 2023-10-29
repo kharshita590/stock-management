@@ -13,12 +13,12 @@ console.log(jwtSecret);
 const AuthenticateUser = (req,res,next) =>{
    // const token = req.header('Authorization');
     let token = req.cookies.token;
-
+    console.log(token)
 
     if(!token){
     res.status(401).json({message: 'unauthorized'})
     }
-    
+
 jwt.verify(token,jwtSecret,(err,user)=>{
     console.log(token)
     console.log(user)
