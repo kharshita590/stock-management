@@ -1,7 +1,7 @@
 import React from 'react'
 import softwareImage from './software.png';
 import "./software.css";
-import { Link,Navigate,useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 export const Homepage = () => {
     const navigate = useNavigate()

@@ -4,7 +4,7 @@ import './style.css';
 //import axios from 'axios';
 import Modal from 'react-modal';
 import './tables.css';
-import {useParams} from 'react-router-dom';
+
 import axios from './api';
 
 
@@ -108,20 +108,12 @@ const Tables = () => {
 
 
   const [popUp, setpopUp] = useState(false);
-  const[data,setData]=useState('');
+
   const [removepopUp, setremovePopUp] = useState(false);
-  const [dateOfEntry, setdateOfEntry] = useState('');
-  const [chemicalName, setchemicalName] = useState('');
-  const [quantity, setquantity] = useState('');
-  const [dateOfIssue, setdateOfIssue] = useState('');
-  const [amount, setamount] = useState('');
-  const [quantityLeft, setquantityLeft] = useState('');
 
 
 
 
-const {id}=useParams();
-//console.log(id);
 
   const [newRowData, setNewRowData] = useState({
     sr: tableData.length,
@@ -202,13 +194,6 @@ const {id}=useParams();
         // Handle errors, e.g., show an error message
         console.error(error);
       });
-  };
-  const token=localStorage.getItem('token')
-  const config = {
-          headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer '+token
-          },
   };
 
   const fetchDataFromBackend = () => {
