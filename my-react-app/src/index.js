@@ -9,7 +9,7 @@ console.log(token);
 if(token){
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 }
-axios.defaults.baseURL = "https://stockstore12.onrender.com/"
+axios.defaults.baseURL = "https://stock-store-api.vercel.app/"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
