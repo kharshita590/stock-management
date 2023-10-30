@@ -12,7 +12,7 @@ function Login() {
     e.preventDefault();
 
     try{
-    const response = await axios.post('/login', { email, password },{withCredentials:true});
+    const response = await axios.post('https://stock-store-api.vercel.app/login', { email, password },{withCredentials:true});
     navigate('../tables');
     console.log(response);
 

@@ -1,1 +1,1 @@
-export const BASE_URL = "https://stockstore12.onrender.com/"
+export const BASE_URL = "https://stock-store-api.vercel.app/"

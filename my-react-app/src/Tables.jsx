@@ -159,7 +159,7 @@ const Tables = () => {
     axios.defaults.withCredentials = true;
     event.preventDefault();
 
-    axios.post('/chemicals',newRowData,{withCredentials:true}
+    axios.post('https://stock-store-api.vercel.app/chemicals',newRowData,{withCredentials:true}
       // 'Content-Type': 'application/json',
       // headers: {
       //   'Authorization': `token = ${JSON.parse(localStorage.getItem('token'))}`,
@@ -198,7 +198,7 @@ const Tables = () => {
 
   const fetchDataFromBackend = () => {
     axios.defaults.withCredentials = true;
-    axios.get('/chemicals',{withCredentials:true})
+    axios.get('https://stock-store-api.vercel.app/chemicals',{withCredentials:true})
       .then(response => {
         setTableData(response.data);
       })
