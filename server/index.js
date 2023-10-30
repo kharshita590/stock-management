@@ -11,7 +11,7 @@ app.use(express.json())
 const auth = require('./routes/authRoutes');
 
 app.use(cors({
-  origin : ["https://stockstore.netlify.app"],
+  origin : ["https://stock-store.netlify.app"],
   methods:["POST","GET","PUT","DELETE"],
   credentials:true
 
