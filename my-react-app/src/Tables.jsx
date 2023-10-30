@@ -162,10 +162,17 @@ const {id}=useParams();
 
   }
 
+
   const handleSubmit = (event) => {
+    axios.defaults.withCredentials = true;
     event.preventDefault();
 
-    axios.post('http://localhost:3000/chemicals', newRowData)
+    axios.post('/chemicals',newRowData
+      // 'Content-Type': 'application/json',
+      // headers: {
+      //   'Authorization': `token = ${JSON.parse(localStorage.getItem('token'))}`,
+      // },
+    )
       .then(result => {
         console.log(result)
       })
@@ -183,9 +190,10 @@ const {id}=useParams();
   }
 
   const handleRemove = (chemicalName, quantityToRemove) => {
+    axios.defaults.withCredentials = true;
     const quantityRemoved = parseInt(quantityToRemove);
     axios
-      .post(`http://localhost:3000/chemicals/remove/${chemicalName}`, { quantityRemoved })
+      .post(`/chemicals/remove/${chemicalName}`, { quantityRemoved })
       .then((response) => {
         // Handle success, e.g., update the state or display a success message
         console.log(response.data);
@@ -204,12 +212,8 @@ const {id}=useParams();
   };
 
   const fetchDataFromBackend = () => {
-    axios.get('http://localhost:3000/chemicals',{
-      'Content-Type': 'application/json',
-      headers: {
-        'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-      },
-    })
+    axios.defaults.withCredentials = true;
+    axios.get('/chemicals')
       .then(response => {
         setTableData(response.data);
       })

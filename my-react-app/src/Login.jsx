@@ -12,13 +12,13 @@ function Login() {
     e.preventDefault();
 
     try{
-    const response = await axios.post('http://localhost:3000/login', { email, password });
+    const response = await axios.post('/login', { email, password });
     navigate('../tables');
     console.log(response);
 
   if (response.data.success) {
     localStorage.setItem('user', JSON.stringify(response.data.user));
-    localStorage.setItem('auth', JSON.stringify(response.token)); // Store auth data separately if needed
+    localStorage.setItem('auth', JSON.stringify(response.data.token)); // Store auth data separately if needed
 
 
   }

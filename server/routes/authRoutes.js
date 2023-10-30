@@ -52,8 +52,6 @@ app.post("/register", async (req, res) => {
         user.token = token
        // user.password = undefined
 
-
-
         return res.status(201).json(user)
 
     } catch (error) {
@@ -94,7 +92,7 @@ app.post("/login", async (req, res) => {
             // Cookie section
             const option = {
                 expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-                //httpOnly: true,
+                 httpOnly: true,
                  secure:true,
             };
 

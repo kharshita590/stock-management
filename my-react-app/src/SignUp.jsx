@@ -11,7 +11,7 @@ function SignUp() {
   const [password, setPassword] = useState('')
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post('http://localhost:3000/register', { name, username, email, password: password })
+    axios.post('/register', { name, username, email, password: password })
       .then(result => {
         console.log(result)
         navigate('../login')
