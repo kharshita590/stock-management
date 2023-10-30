@@ -167,7 +167,7 @@ const {id}=useParams();
     axios.defaults.withCredentials = true;
     event.preventDefault();
 
-    axios.post('/chemicals',newRowData
+    axios.post('/chemicals',newRowData,{withCredentials:true}
       // 'Content-Type': 'application/json',
       // headers: {
       //   'Authorization': `token = ${JSON.parse(localStorage.getItem('token'))}`,
@@ -193,7 +193,7 @@ const {id}=useParams();
     axios.defaults.withCredentials = true;
     const quantityRemoved = parseInt(quantityToRemove);
     axios
-      .post(`/chemicals/remove/${chemicalName}`, { quantityRemoved })
+      .post(`/chemicals/remove/${chemicalName}`, { quantityRemoved },{withCredentials:true})
       .then((response) => {
         // Handle success, e.g., update the state or display a success message
         console.log(response.data);
@@ -213,7 +213,7 @@ const {id}=useParams();
 
   const fetchDataFromBackend = () => {
     axios.defaults.withCredentials = true;
-    axios.get('/chemicals')
+    axios.get('/chemicals',{withCredentials:true})
       .then(response => {
         setTableData(response.data);
       })
