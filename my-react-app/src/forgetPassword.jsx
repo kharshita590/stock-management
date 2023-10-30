@@ -11,7 +11,7 @@ function ForgetPassword() {
      const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('https://stockstore12.onrender.com/forget-password', { email});
+            const response = await axios.post('http://localhost:3000/forget-password', { email});
             navigate('../tables');
 
             if (response.data.auth) {

@@ -45,7 +45,7 @@ app.post("/register", async (req, res) => {
             { id: user._id, email },
             jwtSecret,
             {
-                expiresIn: "1d"
+                expiresIn: "24hr"
             }
 
         );
@@ -81,7 +81,7 @@ app.post("/login", async (req, res) => {
                 { id: user._id },
                 jwtSecret,
                 {
-                    expiresIn: "1d"
+                    expiresIn: "24hr"
                 },
 
             );
@@ -94,7 +94,8 @@ app.post("/login", async (req, res) => {
             // Cookie section
             const option = {
                 expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-                httpOnly: true
+                //httpOnly: true,
+                 secure:true,
             };
 
             return res.status(200)

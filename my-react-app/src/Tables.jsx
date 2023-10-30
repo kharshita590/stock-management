@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 //import ReactTableScroll from 'react-table-scroll';
 import './style.css';
-import axios from 'axios';
+//import axios from 'axios';
 import Modal from 'react-modal';
 import './tables.css';
 import {useParams} from 'react-router-dom';
+import axios from './api';
 
 
 
@@ -164,7 +165,7 @@ const {id}=useParams();
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.post('https://stockstore12.onrender.com/chemicals', newRowData)
+    axios.post('http://localhost:3000/chemicals', newRowData)
       .then(result => {
         console.log(result)
       })
@@ -184,7 +185,7 @@ const {id}=useParams();
   const handleRemove = (chemicalName, quantityToRemove) => {
     const quantityRemoved = parseInt(quantityToRemove);
     axios
-      .post(`https://stockstore12.onrender.com/chemicals/remove/${chemicalName}`, { quantityRemoved })
+      .post(`http://localhost:3000/chemicals/remove/${chemicalName}`, { quantityRemoved })
       .then((response) => {
         // Handle success, e.g., update the state or display a success message
         console.log(response.data);
@@ -196,16 +197,18 @@ const {id}=useParams();
   };
   const token=localStorage.getItem('token')
   const config = {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer '+token
+          },
   };
 
   const fetchDataFromBackend = () => {
-    axios.get('https://stockstore12.onrender.com/chemicals',{
-      // headers: {
-      //   'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
-      // },
+    axios.get('http://localhost:3000/chemicals',{
+      'Content-Type': 'application/json',
+      headers: {
+        'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+      },
     })
       .then(response => {
         setTableData(response.data);

@@ -4,12 +4,12 @@ const app = express();
 const cors = require('cors');
 var bodyParser = require('body-parser');
 const EmployeeModel = require('./models/Employee.jsx');
-const User = require('./models/Employee.jsx')
+const user = require('./models/Employee.jsx')
 const ChemicalsModel = require('./models/chemicals.jsx');
 app.use(express.json())
 
-
 const auth = require('./routes/authRoutes');
+
 app.use(cors(
 
 ));
@@ -94,7 +94,7 @@ app.post('/chemicals', AuthenticateUser, async (req, res) => {
   }
 });
 
-app.get('/chemicals', AuthenticateUser, async (req, res) => {
+app.get('/chemicals',AuthenticateUser, async (req, res) => {
 
   try {
     const body = req.body;
@@ -113,7 +113,7 @@ app.get('/chemicals', AuthenticateUser, async (req, res) => {
   }
 });
 
-app.post('/chemicals/remove/:name', AuthenticateUser, async (req, res) => {
+app.post('/chemicals/remove/:name', async (req, res) => {
   const chemicalName = req.params.name;
   const { quantityRemoved } = req.body;
 
@@ -141,15 +141,6 @@ app.post('/chemicals/remove/:name', AuthenticateUser, async (req, res) => {
       return res.status(500).json({ message: err });
     })
 });
-
-
-// getting data
-
-
-
-
-
-
 
 
 
@@ -181,7 +172,7 @@ app.post('/forget-password', async (req, res) => {
       from: process.env.EMAIL, // Make sure process.env.EMAIL is set correctly
       to: email,
       subject: 'Reset your password! How Fool! Forgot Your Password!',
-      text: `https://stockstore12.onrender.com/reset-password/${user._id}/${token}`
+      text: `http://localhost:3000/reset-password/${user._id}/${token}`
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -198,9 +189,6 @@ app.post('/forget-password', async (req, res) => {
   }
 });
 
-
-// user: "stockmanager14@gmail.com",
-// pass: "hkil txqw tays yjlg"
 
 app.post("/reset-password/:id/:token",(req, res)=> {
   const { id, token } = req.params
@@ -228,16 +216,16 @@ app.post("/reset-password/:id/:token",(req, res)=> {
 
   });
 })
-if (process.env.NODE_ENV === 'production') {
-  //app.use(express.static(__dirname + '/../public/'))
-  app.use(express.static(__dirname + '/../public'))
+// if (process.env.NODE_ENV === 'production') {
+//   //app.use(express.static(__dirname + '/../public/'))
+//   app.use(express.static(__dirname + '/../public'))
 
 
 
-  app.get('/.*/', (req, res) => {
-      res.sendFile(__dirname + '/../public/index.html');
-  });
-}
+//   app.get('/.*/', (req, res) => {
+//       res.sendFile(__dirname + '/../public/index.html');
+//   });
+// }
 
 
 app.listen(4000, () => {
