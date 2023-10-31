@@ -18,18 +18,11 @@ const auth = require('./routes/authRoutes');
 
 const allowedOrigin = 'https://stock-store-fr.vercel.app';
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials (cookies)
-
-  if (req.method === 'OPTIONS') {
-    res.sendStatus(200);
-  } else {
-    next();
-  }
-});
+app.use(cors({
+  origin: allowedOrigin,
+  methods: 'GET,POST,PUT,DELETE',
+  credentials: true, // Allow credentials (cookies)
+}));
 
 app.use(auth);
 app.use(bodyParser.json());
