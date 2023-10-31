@@ -40,15 +40,15 @@ const AuthenticateUser = (req, res, next) => {
         const decoded = jwt.verify(token, jwtSecret);
 
         if (decoded) {
-          // Check if the token is about to expire (e.g., within 30 minutes)
+
           if (decoded.exp - Date.now() / 1000 < 1800) {
-            // Token is about to expire
+
             const newToken = jwt.sign({ user: decoded.user }, jwtSecret, { expiresIn: '1d' });
-            res.cookie('token', newToken, { maxAge: 24 * 60 * 60 * 1000 }); // Set the new token in the response cookies
+            res.cookie('token', newToken, { maxAge: 24 * 60 * 60 * 1000 });
           }
         }
       } catch (err) {
-        // Handle the error (e.g., token verification failure)
+          return res.status(500).send({message:"hui"})
       }
 
       next();
