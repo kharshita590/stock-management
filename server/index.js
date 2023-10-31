@@ -175,7 +175,7 @@ app.post('/forget-password', async (req, res) => {
       from: process.env.EMAIL, // Make sure process.env.EMAIL is set correctly
       to: email,
       subject: 'Reset your password! How Fool! Forgot Your Password!',
-      text: `https://stockstore12.onrender.com/reset-password/${user._id}/${token}`
+      text: `https://stock-store-fr.vercel.app/reset-password/${user._id}/${token}`
     };
 
     transporter.sendMail(mailOptions, function (error, info) {

@@ -94,7 +94,7 @@ app.post("/login", async (req, res) => {
                 expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
                  httpOnly: true,
                  secure:true,
-                 domain:"https://stock-store-fr.vercel.app"
+                 sameSite: 'none',
             };
 
             return res.status(200)
