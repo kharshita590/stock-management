@@ -4,7 +4,6 @@ const app = express();
 const cors = require('cors');
 var bodyParser = require('body-parser');
 const EmployeeModel = require('./models/Employee.jsx');
-const user = require('./models/Employee.jsx')
 const ChemicalsModel = require('./models/chemicals.jsx');
 app.use(express.json())
 
@@ -12,7 +11,6 @@ const auth = require('./routes/authRoutes');
 
 app.use(cors({
   origin : ["https://stock-store-fr.vercel.app"],
-  methods:["POST","GET","PUT","DELETE"],
   credentials:true
 
 }));
