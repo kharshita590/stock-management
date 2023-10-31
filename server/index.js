@@ -8,12 +8,13 @@ const ChemicalsModel = require('./models/chemicals.jsx');
 app.use(express.json())
 
 const auth = require('./routes/authRoutes');
+app.use(cors());
+// app.use(cors({
+//   Access-Control-Allow-Origin: '*',
+//   origin : ["https://stock-store-fr.vercel.app"],
+//   credentials:true
 
-app.use(cors({
-  origin : ["https://stock-store-fr.vercel.app"],
-  credentials:true
-
-}));
+// }));
 app.use(auth);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
