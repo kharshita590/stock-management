@@ -8,15 +8,7 @@ const ChemicalsModel = require('./models/chemicals.jsx');
 app.use(express.json())
 
 const auth = require('./routes/authRoutes');
-app.use(cors());
-app.use(cors({
-  //Access-Control-Allow-Origin: '*',
-  origin : ["https://stock-store-fr.vercel.app"],
-  credentials:true
-
-}));
-
-
+// app.use(cors());
 
 // app.use(cors({
 //   origin: allowedOrigin,
