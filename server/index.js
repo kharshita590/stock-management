@@ -16,7 +16,7 @@ app.use(cors({
 
 }));
 
-const allowedOrigin = 'https://stock-store-fr.vercel.app';
+
 
 // app.use(cors({
 //   origin: allowedOrigin,

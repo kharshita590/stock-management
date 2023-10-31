@@ -20,23 +20,24 @@ const AuthenticateUser = (req, res, next) => {
         res.status(401).json({ message: 'unauthorized hi' })
     }
 
-    jwt.verify(token, jwtSecret, { expiresIn: '24hr' }, (err, user) => {
-        console.log(token)
-        console.log(user)
-        if (err) {
-            console.log(err);
-            return res.status(401).json({ message: 'Failed to authenticate token' });
 
+    try {
+        const decoded = jwt.verify(token, jwtSecret);
+
+        if (decoded) {
+          // Check if the token is about to expire (e.g., within 30 minutes)
+          if (decoded.exp - Date.now() / 1000 < 1800) {
+            // Token is about to expire
+            const newToken = jwt.sign({ user: decoded.user }, jwtSecret, { expiresIn: '1d' });
+            res.cookie('token', newToken, { maxAge: 24 * 60 * 60 * 1000 }); // Set the new token in the response cookies
+          }
         }
-        req.user = user;
+      } catch (err) {
+        // Handle the error (e.g., token verification failure)
+      }
 
-
-        return next();
-
-
-
-    });
-
+      next();
+    
 
 }
 
