@@ -15,12 +15,31 @@ const auth = require('./routes/authRoutes');
 //   methods: 'GET,POST,PUT,DELETE',
 //   credentials: true, // Allow credentials (cookies)
 // }));
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "https://stock-store-fr.vercel.app");
+//   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+//   next();
+// })
+
+app.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', 'https://stock-store-fr.vercel.app/login');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.sendStatus(204); // No content for preflight request
+});
+
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://stock-store-fr.vercel.app");
-  res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.header('Access-Control-Allow-Origin', 'https://stock-store-fr.vercel.app/login');
+  res.header('Access-Control-Allow-Credentials', 'true');
   next();
-})
+});
+
+
+
+
+
 
 app.use(auth);
 app.use(bodyParser.json());
