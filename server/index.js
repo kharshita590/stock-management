@@ -8,13 +8,29 @@ const ChemicalsModel = require('./models/chemicals.jsx');
 app.use(express.json())
 
 const auth = require('./routes/authRoutes');
-app.use(cors());
-// app.use(cors({
-//   Access-Control-Allow-Origin: '*',
-//   origin : ["https://stock-store-fr.vercel.app"],
-//   credentials:true
+// app.use(cors());
+// // app.use(cors({
+// //   Access-Control-Allow-Origin: '*',
+// //   origin : ["https://stock-store-fr.vercel.app"],
+// //   credentials:true
 
-// }));
+// // }));
+
+const allowedOrigin = 'https://stock-store-fr.vercel.app';
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials (cookies)
+
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
+
 app.use(auth);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
