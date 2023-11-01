@@ -17,14 +17,14 @@ export const Homepage = () => {
 
   return (
     <div className={styles['special-page']}>
-        <div className="container">
+        <div className={styles.container}>
         {/* <img src={softwareImage} className="software" alt="Software"/> */}
-        <h2>Manage your stocks with best inventory management system! Add and remove automatically!</h2>
+        <h2 className = {styles.h}>Manage your stocks with best inventory management system! Add and remove automatically!</h2>
 
     </div>
-    <div className="btnContainer">
-    <button className="btn1" onClick={handleSubmit}>Sign in</button>
-    <button className="btn2" onClick={handleSubmit2}>Sign Up</button>
+    <div className={styles.btnContainer}>
+    <button className= {styles.btn1} onClick={handleSubmit}>Sign in</button>
+    <button className={styles.btn2} onClick={handleSubmit2}>Sign Up</button>
     </div>
     </div>
   )

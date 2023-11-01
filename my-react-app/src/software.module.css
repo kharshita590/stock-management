@@ -3,11 +3,11 @@
     align-items: center; /* Vertically center the content */
     margin-top: 8rem;
   }
-  special-page{
+  .special-page{
 
     background-size: cover;
 }
-special-page::before {
+.special-page::before {
     content: "";
     background-image: url('hi.png');
     background-size: cover;
