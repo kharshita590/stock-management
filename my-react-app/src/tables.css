@@ -15,7 +15,7 @@ body::before {
     z-index: -1;
   }
 h1{
-    font-family: monospace;
+    font-family: lato;
     font-size:25pt;
     justify-content: center;
     display: flex;

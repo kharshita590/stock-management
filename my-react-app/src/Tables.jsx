@@ -49,7 +49,7 @@ const addBtn = {
   width: '5rem',
   height: '2rem',
   border: 'none',
-  marginLeft: '3rem',
+  marginLeft: '4rem',
   marginTop: '2rem',
   fontFamily: 'poppins',
   backgroundColor: '#CAE2BE',
@@ -60,7 +60,7 @@ const RemoveBtn = {
   width: '5rem',
   height: '2rem',
   border: 'none',
-  marginLeft: '1rem',
+  marginLeft: '3rem',
   marginTop: '2rem',
   fontFamily: 'poppins',
   backgroundColor: '#F3EC99',
@@ -72,7 +72,7 @@ const saveBtn = {
   width: '5rem',
   height: '2rem',
   border: 'none',
-  marginLeft: '58rem',
+  marginLeft: '60rem',
   marginTop: '2rem',
   fontFamily: 'poppins',
   backgroundColor: '#F3EC99',
@@ -226,15 +226,15 @@ const  handleRowClick =(rowId)=>{
 
 <nav className="navbar navbar-expand-lg navbar-light bg-dark">
       <div className="container-fluid">
-        <h4><a className="navbar-brand2" href="#">StockManagement</a></h4>
-        <h5><a className="navbar-brand1" href="#">Home</a></h5>
+        <h4><a className="navbar-brand2" href="/">StockManagement</a></h4>
+        <h5><a className="navbar-brand1" href="/">Home</a></h5>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <a className="nav-link-disabled" href="#" onClick="">
+              <a className="nav-link-disabled" href="/" onClick="">
                 Log Out
               </a>
             </li>
