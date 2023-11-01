@@ -21,3 +21,14 @@
     background-color:rgb(246, 152, 1);
 
 }
+
+@media (max-width:650px) {
+    .container2{
+        border:1px solid #d6cfc7;
+        width:18rem;
+        height:20rem;
+        margin: auto;
+        margin-top: 5rem;
+    }
+
+}

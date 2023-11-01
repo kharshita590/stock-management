@@ -26,6 +26,10 @@ export const Homepage = () => {
     <button className= {styles.btn1} onClick={handleSubmit}>Sign in</button>
     <button className={styles.btn2} onClick={handleSubmit2}>Sign Up</button>
     </div>
+
+    <footer className={styles.footer1}>
+        <h4 className={styles.hw}>&copy; 2023 Harshita Kumari. All rights reserved.</h4>
+      </footer>
     </div>
   )
 }
