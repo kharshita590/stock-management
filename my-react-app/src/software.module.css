@@ -88,7 +88,7 @@
   color: #333;
   text-align: center;
   padding: 10px;
-  margin-top:12rem;
+  margin-top:12.5rem;
 }
 .hw{
   color: #fff;
@@ -106,6 +106,7 @@
     font-weight:480;
     background-color:rgb(1, 187, 94);
     border-radius:5px;
+    margin-left: -2rem;
 
 }
 
@@ -120,6 +121,7 @@
   background-color:rgb(1, 187, 94);
   border-radius:5px;
   margin-top: 2rem;
+
 }
 .h {
  margin-top: -1rem;
@@ -136,7 +138,7 @@
   color: #333;
   text-align: center;
   padding: 10px;
-  margin-top:5rem;
+  margin-top:11rem;
 }
 .hw{
   color: #fff;

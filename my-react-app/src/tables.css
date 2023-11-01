@@ -64,3 +64,14 @@ h4 {
     text-decoration: none;
     font-family: poppins;
 }
+
+
+@media (max-width:650px) {
+.mb3{
+    margin-left: 0;
+    text-align: left; 
+    width: 100%;
+
+
+}
+}
