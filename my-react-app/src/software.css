@@ -3,11 +3,11 @@
     align-items: center; /* Vertically center the content */
     margin-top: 8rem;
   }
-  body{
+  special-page{
 
     background-size: cover;
 }
-body::before {
+special-page::before {
     content: "";
     background-image: url('hi.png');
     background-size: cover;
@@ -31,6 +31,7 @@ body::before {
     width: 50%;
     font-family: poppins;
     line-height: 3rem;
+    color: #fff;
     white-space: normal; /* Allow text to wrap to the next line if it's too long */
   }
 

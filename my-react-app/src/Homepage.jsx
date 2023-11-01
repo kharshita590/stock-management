@@ -1,6 +1,6 @@
 import React from 'react'
 import softwareImage from './software.png';
-import "./software.css";
+import styles from  "./software.css";
 import {useNavigate} from 'react-router-dom';
 
 export const Homepage = () => {
@@ -16,9 +16,9 @@ export const Homepage = () => {
     }
 
   return (
-    <div>
+    <div className={styles['special-page']}>
         <div className="container">
-        <img src={softwareImage} className="software" alt="Software"/>
+        {/* <img src={softwareImage} className="software" alt="Software"/> */}
         <h2>Manage your stocks with best inventory management system! Add and remove automatically!</h2>
 
     </div>
