@@ -6,11 +6,11 @@ const ChemicalsSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"EmployeeSchema",
     },
-    dateOfEntry:new Date(),
+    dateOfEntry:{ type: Date, default: Date.now },
     chemicalName:String,
     nonConsumable:String,
     quantity:Number,
-    dateOfIssue:new Date(),
+    dateOfIssue:{ type: Date, default: Date.now },
     amount:Number,
     quantityLeft:Number,
 
