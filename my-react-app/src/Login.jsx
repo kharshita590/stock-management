@@ -18,13 +18,18 @@ function Login() {
 
   if (response.data.success) {
     localStorage.setItem('user', JSON.stringify(response.data.user));
-    localStorage.setItem('auth', JSON.stringify(response.data.token)); // Store auth data separately if needed
+    localStorage.setItem('auth', JSON.stringify(response.data.token));
+    // Store auth data separately if needed
 
 
   }
 } catch (error) {
   console.error('Error:', error);
   // Handle authentication error here
+
+  if(error==401){
+
+  }
 }
   }
   return (
