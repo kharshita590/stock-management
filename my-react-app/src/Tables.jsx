@@ -463,8 +463,8 @@ const  handleRowClick =(rowId)=>{
 
                 />
               </div>
-              <button style={saveBtn}><ExportExcel excelData={tableData} fileName="ChemicalData"/>Save</button>
-
+              <ExportExcel excelData={tableData} fileName="ChemicalData" />
+      <button style={saveBtn} onClick={() => document.querySelector('button[onClick="exportToExcel()"]').click()}>Save</button>
               <button style={RemoveBtn} onClick={() => handleRemove(removeData.chemicalName, removeData.quantityToRemove)}>Subtract</button>
 
               <button style={RemoveBtn} onClick={closeModal}>Submit</button>
