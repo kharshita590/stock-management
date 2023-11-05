@@ -26,12 +26,8 @@ const ExportExcel = ({excelData,fileName}) =>{
 
     }
     return (
-        <>
+<button onClick={exportToExcel} style={saveBtn}>save</button>
 
-         <button style={saveBtn} onClick={(e)=>{exportToExcel(fileName)}}>Save</button>
-
-        </>
-
-    )
+    );
 }
 export default ExportExcel;
