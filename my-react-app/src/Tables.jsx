@@ -10,6 +10,17 @@ import axios from './api';
 
 
 //styling
+const saveBtn = {
+  width: '5rem',
+  height: '2rem',
+  border: 'none',
+  marginLeft: '63rem',
+  marginTop: '2rem',
+  fontFamily: 'poppins',
+  backgroundColor: '#F3EC99',
+  cursor: 'pointer',
+  fontSize: '14px'
+}
 const table = {
   border: '1px solid #D3D3D3',
   marginTop: '6rem'
@@ -452,7 +463,7 @@ const  handleRowClick =(rowId)=>{
 
                 />
               </div>
-              <ExportExcel excelData={tableData} fileName="ChemicalData" />
+              <button style={saveBtn}><ExportExcel excelData={tableData} fileName="ChemicalData"/></button>
 
               <button style={RemoveBtn} onClick={() => handleRemove(removeData.chemicalName, removeData.quantityToRemove)}>Subtract</button>
 
