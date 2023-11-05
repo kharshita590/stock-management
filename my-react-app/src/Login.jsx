@@ -27,7 +27,7 @@ function Login() {
   console.error('Error:', error);
   // Handle authentication error here
 
-  if(error==401){
+  if(error===401){
 
   }
 }

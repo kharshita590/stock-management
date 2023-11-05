@@ -1,5 +1,4 @@
 import React from 'react'
-import softwareImage from './software.png';
 import styles from  "./software.module.css";
 import {useNavigate} from 'react-router-dom';
 

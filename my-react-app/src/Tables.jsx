@@ -4,7 +4,7 @@ import './style.css';
 //import axios from 'axios';
 import Modal from 'react-modal';
 import './tables.css';
-
+import  ExportExcel from './excelexport.js'
 import axios from './api';
 
 
@@ -68,24 +68,20 @@ const RemoveBtn = {
   fontSize: '14px'
 }
 
-const saveBtn = {
-  width: '5rem',
-  height: '2rem',
-  border: 'none',
-  marginLeft: '63rem',
-  marginTop: '2rem',
-  fontFamily: 'poppins',
-  backgroundColor: '#F3EC99',
-  cursor: 'pointer',
-  fontSize: '14px'
-}
+
 const form1 = {
   display: 'block',
   alignItems: 'center',
   justifyContent: 'center',
 }
 
+
+
+
+
 const Tables = () => {
+
+
   const [tableData, setTableData] = useState([
   ]);
 
@@ -456,6 +452,7 @@ const  handleRowClick =(rowId)=>{
 
                 />
               </div>
+              <ExportExcel excelData={tableData} fileName="ChemicalData" />
 
               <button style={RemoveBtn} onClick={() => handleRemove(removeData.chemicalName, removeData.quantityToRemove)}>Subtract</button>
 
@@ -471,7 +468,7 @@ const  handleRowClick =(rowId)=>{
       )}
 
 
-      <button style={saveBtn} >Save</button>
+
 
       <footer>
         <h3>&copy; 2023 Harshita Kumari. All rights reserved.</h3>
