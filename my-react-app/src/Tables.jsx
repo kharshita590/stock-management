@@ -466,8 +466,7 @@ const handleExport = () => {
 
                 />
               </div>
-              {/* <ExportExcel excelData={tableData} fileName="ChemicalData" onExport={handleExport} /> */}
-      <button style={saveBtn} onClick={handleExport}>Save</button>
+
               <button style={RemoveBtn} onClick={() => handleRemove(removeData.chemicalName, removeData.quantityToRemove)}>Subtract</button>
 
               <button style={RemoveBtn} onClick={closeModal}>Submit</button>
@@ -476,6 +475,8 @@ const handleExport = () => {
 
 
           </Modal>
+          <ExportExcel excelData={tableData} fileName="ChemicalData" onExport={handleExport} />
+      <button style={saveBtn} onClick={handleExport}>Save</button>
         </div>
 
 
