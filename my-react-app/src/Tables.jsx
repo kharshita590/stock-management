@@ -394,6 +394,8 @@ const handleExport = () => {
       )}
       <button style={addBtn} onClick={handleRow}>Add+</button>
       <button style={RemoveBtn} onClick={openModal}>Remove-</button>
+      <ExportExcel excelData={tableData} fileName="ChemicalData" onExport={handleExport} />
+      <button style={saveBtn} onClick={handleExport}>Save</button>
       {removepopUp && (
         <div className="mb-3" style={{ maxWidth: '300px', marginLeft: '400px', border: '1px solid #d6cfc7', padding: '0.5em 0.5em 0.5em' }}>
 
@@ -475,8 +477,7 @@ const handleExport = () => {
 
 
           </Modal>
-          <ExportExcel excelData={tableData} fileName="ChemicalData" onExport={handleExport} />
-      <button style={saveBtn} onClick={handleExport}>Save</button>
+
         </div>
 
 
