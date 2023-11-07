@@ -131,7 +131,7 @@ app.get('/chemicals',AuthenticateUser, async (req, res) => {
 });
 
 app.post('/chemicals/remove/:chemicalId', async (req, res) => {
-  const chemicalId = req.chemicals.id;
+  const chemicalId = req.params.chemicalId;
   const { quantityRemoved } = req.body;
 
 
