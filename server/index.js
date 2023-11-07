@@ -24,13 +24,6 @@ app.use((req, res, next) => {
   next();
 });
 
-const corsOptions = {
-  origin: 'https://stock-store-fr.vercel.app',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true, // This allows cookies to be sent in cross-origin requests
-};
-
-app.use(cors(corsOptions));
 
 
 
@@ -136,14 +129,14 @@ app.get('/chemicals',AuthenticateUser, async (req, res) => {
 
   }
 });
-app.options('./chemicals/remove/:userId',cors(corsOptions))
-app.post('/chemicals/remove/:userId', async (req, res) => {
-  const userId = req.user.id;
+
+app.post('/chemicals/remove/:chemicalId', async (req, res) => {
+  const chemicalId = req.chemicals.id;
   const { quantityRemoved } = req.body;
 
 
 
-  const y = await ChemicalsModel.find({ userId: userId })
+  const y = await ChemicalsModel.find({ chemicalId: chemicalId })
     .then((chemicals) => {
       if (!chemicals) {
         return res.status(400).json({ message: "not found" });
