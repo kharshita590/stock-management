@@ -79,7 +79,7 @@ app.post("/login", async (req, res) => {
                 { id: user._id },
                 jwtSecret,
                 {
-                    expiresIn: "3min"
+                    expiresIn: "24hr"
                 },
 
             );

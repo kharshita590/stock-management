@@ -129,7 +129,7 @@ app.get('/chemicals',AuthenticateUser, async (req, res) => {
   }
 });
 
-app.post('/chemicals/remove/:name', async (req, res) => {
+app.post('/chemicals/remove/:name',AuthenticateUser, async (req, res) => {
   const chemicalName = req.params.name;
   const { quantityRemoved } = req.body;
 
