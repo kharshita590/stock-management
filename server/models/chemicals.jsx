@@ -14,7 +14,6 @@ const ChemicalsSchema = new mongoose.Schema({
     amount:Number,
     quantityLeft:{
         type:Number,
-        default:0
     },
 
 });
