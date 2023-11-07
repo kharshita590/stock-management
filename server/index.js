@@ -29,7 +29,6 @@ app.use((req, res, next) => {
 
 
 
-
 app.use(auth);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -130,14 +129,13 @@ app.get('/chemicals',AuthenticateUser, async (req, res) => {
   }
 });
 
-app.post('/chemicals/remove/:chemicalName',AuthenticateUser, async (req, res) => {
-  const userId = req.user.id;
-  const chemicalName = req.params.chemicalName
-    const { quantityRemoved } = req.body;
+app.post('/chemicals/remove/:name', async (req, res) => {
+  const chemicalName = req.params.name;
+  const { quantityRemoved } = req.body;
 
 
 
-  const y = await ChemicalsModel.findOne({ userId: userId,chemicalName: chemicalName})
+  const y = await ChemicalsModel.findOne({ chemicalName: chemicalName })
     .then((chemicals) => {
       if (!chemicals) {
         return res.status(400).json({ message: "not found" });
