@@ -12,7 +12,10 @@ const ChemicalsSchema = new mongoose.Schema({
     quantity:Number,
     dateOfIssue:{ type: String},
     amount:Number,
-    quantityLeft:Number,
+    quantityLeft:{
+        type:Number,
+        default:0
+    },
 
 });
 
