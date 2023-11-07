@@ -24,6 +24,14 @@ app.use((req, res, next) => {
   next();
 });
 
+const corsOptions = {
+  origin: 'https://stock-store-fr.vercel.app',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // This allows cookies to be sent in cross-origin requests
+};
+
+app.use(cors(corsOptions));
+
 
 
 
@@ -128,7 +136,7 @@ app.get('/chemicals',AuthenticateUser, async (req, res) => {
 
   }
 });
-
+app.options('./chemicals/remove/:userId',cors(corsOptions))
 app.post('/chemicals/remove/:userId', async (req, res) => {
   const userId = req.user.id;
   const { quantityRemoved } = req.body;
