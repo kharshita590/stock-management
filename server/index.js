@@ -143,7 +143,7 @@ app.post('/chemicals/remove/:userId', async (req, res) => {
 
 
 
-  const y = await ChemicalsModel.findOne({ userId: userId })
+  const y = await ChemicalsModel.find({ userId: userId })
     .then((chemicals) => {
       if (!chemicals) {
         return res.status(400).json({ message: "not found" });
