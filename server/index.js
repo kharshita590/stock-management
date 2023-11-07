@@ -129,13 +129,13 @@ app.get('/chemicals',AuthenticateUser, async (req, res) => {
   }
 });
 
-app.post('/chemicals/remove/:name', async (req, res) => {
-  const chemicalName = req.params.name;
+app.post('/chemicals/remove/:userId', async (req, res) => {
+  const userId = req.user.id;
   const { quantityRemoved } = req.body;
 
 
 
-  const y = await ChemicalsModel.findOne({ chemicalName: chemicalName })
+  const y = await ChemicalsModel.findOne({ userId: userId })
     .then((chemicals) => {
       if (!chemicals) {
         return res.status(400).json({ message: "not found" });
